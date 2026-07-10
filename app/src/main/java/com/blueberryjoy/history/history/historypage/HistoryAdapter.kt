@@ -11,12 +11,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blueberryjoy.history.R
 import com.blueberryjoy.history.history.BrowsingHistory
-import com.blueberryjoy.history.history.HistoryURL
+import com.blueberryjoy.history.history.HistoryUrl
 import java.util.Locale
 
 class HistoryAdapter(
-    private val onClick: (HistoryURL) -> Unit = {},
-    private val onLongClick: (HistoryURL) -> Boolean = { true }
+    private val onClick: (HistoryUrl) -> Unit = {},
+    private val onLongClick: (HistoryUrl) -> Boolean = { true }
 ) : RecyclerView.Adapter<BaseViewHolder>(), Filterable {
 
     var items = ArrayList<HistoryItem>()
@@ -92,7 +92,7 @@ class HistoryAdapter(
 
     override fun getItemCount(): Int = displayIndexes.size
 
-    fun remove(position: Int): Pair<HistoryURL, Int> {
+    fun remove(position: Int): Pair<HistoryUrl, Int> {
         val actualIndex = displayIndexes[position]
         val item = items[actualIndex] as HistoryItem.Entry
         BrowsingHistory.deleteHistory(item.history)
@@ -105,9 +105,9 @@ class HistoryAdapter(
         return Pair(item.history, actualIndex)
     }
 
-    fun recover(historyURL: HistoryURL, position: Int, actualIndex: Int) {
-        historyURL.removed = false
-        BrowsingHistory.recoverHistory(historyURL)
+    fun recover(historyURL: HistoryUrl, position: Int, actualIndex: Int) {
+        historyURL.isRemoved = false
+        BrowsingHistory.restoreHistory(historyURL)
         items.add(actualIndex, HistoryItem.Entry(historyURL))
         displayIndexes.add(position, actualIndex)
         for (i in position + 1 until displayIndexes.size) {
@@ -160,7 +160,9 @@ class HistoryAdapter(
             @SuppressLint("NotifyDataSetChanged")
             override fun publishResults(constraint: CharSequence?, results: FilterResults) {
                 displayIndexes.clear()
-                displayIndexes.addAll(results.values as ArrayList<Int>)
+                for (index in results.values as List<*>) {
+                    displayIndexes.add(index as Int)
+                }
                 notifyDataSetChanged()
             }
         }
@@ -169,7 +171,7 @@ class HistoryAdapter(
 
 sealed class HistoryItem {
     data class Header(val text: String) : HistoryItem()
-    data class Entry(val history: HistoryURL) : HistoryItem()
+    data class Entry(val history: HistoryUrl) : HistoryItem()
 }
 
 sealed class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view)

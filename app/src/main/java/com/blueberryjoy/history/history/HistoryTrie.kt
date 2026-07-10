@@ -5,7 +5,7 @@ import kotlin.text.iterator
 class HistoryTrie {
     private val root = HistoryTrieNode()
 
-    fun insert(token: String, list: List<HistoryURL>) {
+    fun insert(token: String, list: List<HistoryUrl>) {
         var node = root
         for (chr in token) {
             node.add(list)
@@ -14,7 +14,7 @@ class HistoryTrie {
         node.add(list)
     }
 
-    fun get(token: String): List<List<HistoryURL>> {
+    fun get(token: String): List<List<HistoryUrl>> {
         var node = root
         for (chr in token) {
             val next = node.next(chr) ?: break
@@ -23,7 +23,7 @@ class HistoryTrie {
         return node.getList()
     }
 
-    fun addAll(historyTokenMap: HashMap<String, ArrayList<HistoryURL>>) {
+    fun addAll(historyTokenMap: HashMap<String, ArrayList<HistoryUrl>>) {
         for ((token, list) in historyTokenMap.entries) {
             insert(token, list)
         }

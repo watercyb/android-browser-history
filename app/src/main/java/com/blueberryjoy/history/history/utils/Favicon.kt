@@ -40,8 +40,8 @@ object Favicon {
     fun initialize() {
         icons.clear()
         icons["null"] =
-            BitmapFactory.decodeResource(App.getAppContext().resources, R.mipmap.ic_favicon)
-        dir = App.getAppContext().filesDir.absolutePath
+            BitmapFactory.decodeResource(App.appContext.resources, R.mipmap.ic_favicon)
+        dir = App.appContext.filesDir.absolutePath
     }
 
     fun setIcon(k: String?, bitmap: Bitmap?) {

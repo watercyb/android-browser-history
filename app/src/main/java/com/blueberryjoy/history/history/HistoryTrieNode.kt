@@ -1,7 +1,7 @@
 package com.blueberryjoy.history.history
 
 class HistoryTrieNode {
-    private val list = ArrayList<List<HistoryURL>>()
+    private val list = ArrayList<List<HistoryUrl>>()
     private val children = HashMap<Char, HistoryTrieNode>()
 
     fun next(chr: Char): HistoryTrieNode? {
@@ -14,11 +14,11 @@ class HistoryTrieNode {
         return children[chr]!!
     }
 
-    fun add(list: List<HistoryURL>) {
+    fun add(list: List<HistoryUrl>) {
         this.list.add(list)
     }
 
-    fun getList(): List<List<HistoryURL>> {
+    fun getList(): List<List<HistoryUrl>> {
         return list
     }
 }

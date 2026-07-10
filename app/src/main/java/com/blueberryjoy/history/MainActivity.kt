@@ -26,8 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blueberryjoy.history.history.BrowsingHistory
 import com.blueberryjoy.history.history.BrowsingHistory.debouncedInsert
-import com.blueberryjoy.history.history.HistorySuggestionAdapter
-import com.blueberryjoy.history.history.HistoryURL
+import com.blueberryjoy.history.history.HistoryUrl
 import com.blueberryjoy.history.history.historypage.HistoryPage
 import com.blueberryjoy.history.history.utils.Favicon
 import java.io.UnsupportedEncodingException
@@ -65,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerViewHistory.setLayoutManager(LinearLayoutManager(this@MainActivity))
         val historySuggestionAdapter =
-            HistorySuggestionAdapter(java.util.ArrayList<HistoryURL>()) { item: HistoryURL ->
+            HistorySuggestionAdapter(java.util.ArrayList<HistoryUrl>()) { item: HistoryUrl ->
                 val url: String = item.url
                 webUrl.setText(url)
                 webView.loadUrl(url)
@@ -132,7 +131,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 if (webUrl.isFocused) {
-                    val list: ArrayList<HistoryURL> = BrowsingHistory.search(webUrl.text.toString())
+                    val list: ArrayList<HistoryUrl> = BrowsingHistory.searchHistory(webUrl.text.toString())
                     historySuggestionAdapter.addList(list)
                 }
             }
@@ -141,7 +140,7 @@ class MainActivity : AppCompatActivity() {
         webUrl.onFocusChangeListener = OnFocusChangeListener { _: View?, hasFocus: Boolean ->
             if (hasFocus) {
                 recyclerViewHistory.visibility = View.VISIBLE
-                val list: ArrayList<HistoryURL> = BrowsingHistory.search(webUrl.text.toString())
+                val list: ArrayList<HistoryUrl> = BrowsingHistory.searchHistory(webUrl.text.toString())
                 historySuggestionAdapter.addList(list)
                 webUrl.isSingleLine = false
             } else {

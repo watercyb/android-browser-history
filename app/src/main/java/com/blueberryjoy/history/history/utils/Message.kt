@@ -6,7 +6,7 @@ import com.blueberryjoy.history.App
 
 object Message {
     fun toast(str: String?) {
-        Toast.makeText(App.getAppContext(), str, Toast.LENGTH_SHORT).show()
+        Toast.makeText(App.appContext, str, Toast.LENGTH_SHORT).show()
     }
 
     fun log(str: String) {

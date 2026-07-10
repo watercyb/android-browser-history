@@ -1,4 +1,4 @@
-package com.blueberryjoy.history.history
+package com.blueberryjoy.history
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.blueberryjoy.history.R
-import com.blueberryjoy.history.history.BrowsingHistory.deleteHistory
+import com.blueberryjoy.history.history.BrowsingHistory
+import com.blueberryjoy.history.history.HistoryUrl
 
 class HistorySuggestionAdapter(
-    private var items: ArrayList<HistoryURL> = ArrayList(),
-    private val onClick: (HistoryURL) -> Unit = {}
+    private var items: ArrayList<HistoryUrl> = ArrayList(),
+    private val onClick: (HistoryUrl) -> Unit = {}
 ) : RecyclerView.Adapter<HistorySuggestionAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -40,14 +40,14 @@ class HistorySuggestionAdapter(
     override fun getItemCount(): Int = items.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addList(list: ArrayList<HistoryURL>) {
+    fun addList(list: ArrayList<HistoryUrl>) {
         items = list
         notifyDataSetChanged()
     }
 
     fun remove(position: Int) {
         val historyURL = items[position]
-        deleteHistory(historyURL)
+        BrowsingHistory.deleteHistory(historyURL)
         items.removeAt(position)
         notifyItemRemoved(position)
     }

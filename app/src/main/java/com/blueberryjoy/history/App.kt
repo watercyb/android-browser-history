@@ -1,25 +1,22 @@
-package com.blueberryjoy.history;
+package com.blueberryjoy.history
 
-import android.app.Application;
-import android.content.Context;
+import android.app.Application
+import android.content.Context
 
-import androidx.annotation.NonNull;
+class App : Application() {
 
-public class App extends Application {
-    private static Context appContext;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        appContext = getApplicationContext();
+    companion object {
+        private lateinit var instance: App
+        val appContext: Context
+            get() = instance.applicationContext
     }
 
-    @Override
-    protected void attachBaseContext(@NonNull Context base) {
-        super.attachBaseContext(base);
+    override fun onCreate() {
+        super.onCreate()
+        instance = this
     }
 
-    public static Context getAppContext() {
-        return appContext;
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
     }
 }

@@ -15,7 +15,7 @@ class DebouncedInserter : ViewModel() {
 
     fun insert(url: String, title: String) {
         jobs[url]?.cancel()
-        val job = viewModelScope.launch(Dispatchers.Default) {
+        val job = viewModelScope.launch(Dispatchers.IO) {
             delay(delayMs.milliseconds)
             BrowsingHistory.insert(url, title)
             jobs.remove(url)

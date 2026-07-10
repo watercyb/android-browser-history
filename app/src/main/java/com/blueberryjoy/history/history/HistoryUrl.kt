@@ -6,17 +6,20 @@ import java.net.URI
 import java.time.Instant
 import java.time.ZoneId
 
-class HistoryURL(var id: Int, val url: String, var title: String, var timestamp: Long) {
-    var icon: Bitmap? = Favicon.getIconFromUrl(url)
-    var domain = getDomain(url)
-    var removed = false
+class HistoryUrl(var id: Int, val url: String, var title: String, var timestamp: Long) {
+    val icon: Bitmap? = Favicon.getIconFromUrl(url)
+    val domainPath = extractDomainPath()
+    var isRemoved: Boolean = false
 
-    fun update(title: String) {
+    fun updateTitle(title: String) {
         this.title = title
-        timestamp = BrowsingHistory.updateHistory(id, title)
     }
 
-    fun getDomain(url: String): String {
+    fun updateTimestamp(timestamp: Long) {
+        this.timestamp = timestamp
+    }
+
+    private fun extractDomainPath(): String {
         val uri = URI(url)
         val host = uri.host ?: return url
         val path = uri.path.substringBeforeLast(".")

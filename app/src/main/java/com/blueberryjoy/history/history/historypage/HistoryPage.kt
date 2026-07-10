@@ -29,14 +29,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blueberryjoy.history.R
 import com.blueberryjoy.history.history.BrowsingHistory
-import com.blueberryjoy.history.history.HistoryURL
+import com.blueberryjoy.history.history.HistoryUrl
 import com.blueberryjoy.history.history.utils.Message
 
 class HistoryPage : AppCompatActivity() {
     var recyclerView: RecyclerView? = null
     var historyAdapter: HistoryAdapter? = null
     var popupWindow: PopupWindow? = null
-    var deleted: HistoryURL? = null
+    var deleted: HistoryUrl? = null
     var deletedPosition = -1
     var deletedActualIndex = -1
     var filter: EditText? = null
@@ -151,14 +151,14 @@ class HistoryPage : AppCompatActivity() {
 
     private fun initializeRecyclerView() {
         recyclerView?.setLayoutManager(LinearLayoutManager(this))
-        historyAdapter = HistoryAdapter({ item: HistoryURL? ->
+        historyAdapter = HistoryAdapter({ item: HistoryUrl? ->
             val intent = Intent("bookmark")
             intent.putExtra("link", item?.url)
             intent.putExtra("idx", -1)
             intent.putExtra("new page", false)
             setResult(RESULT_OK, intent)
             finish()
-        }, { item: HistoryURL? ->
+        }, { item: HistoryUrl? ->
             val intent = Intent("bookmark")
             intent.putExtra("link", item?.url)
             intent.putExtra("idx", -1)
