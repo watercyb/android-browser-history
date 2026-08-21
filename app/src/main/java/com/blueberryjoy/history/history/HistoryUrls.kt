@@ -7,6 +7,7 @@ class HistoryUrls {
     private val historyList = ArrayList<HistoryUrl>()
 
     suspend fun insertURL(url: String, title: String) {
+
         if (urlMap.containsKey(url)) {
             val historyUrl = urlMap[url]!!
 
