@@ -187,10 +187,4 @@ Current development focuses on improving:
 
 ## License
 
-Add your preferred license here.
-
-For example:
-
-```text
-MIT License
-```
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for the full license text.
