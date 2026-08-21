@@ -135,7 +135,7 @@ This repository is a **complete, runnable Android project**. It can be opened di
 ### Main Components
 
 ```text
-history/
+app/src/main/java/com/blueberryjoy/history/
 ├── history/
 │   ├── SQLite/
 │   │   └── ...                 # SQLite history storage
