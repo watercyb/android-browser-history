@@ -8,8 +8,12 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.View.OnFocusChangeListener
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.EditorInfo.IME_ACTION_GO
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -29,6 +33,7 @@ import com.blueberryjoy.history.history.BrowsingHistory.debouncedInsert
 import com.blueberryjoy.history.history.HistoryUrl
 import com.blueberryjoy.history.history.historypage.HistoryPage
 import com.blueberryjoy.history.history.utils.Favicon
+import java.io.Console
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
 
@@ -131,7 +136,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 if (webUrl.isFocused) {
-                    val list: ArrayList<HistoryUrl> = BrowsingHistory.searchHistory(webUrl.text.toString())
+                    val list: ArrayList<HistoryUrl> =
+                        BrowsingHistory.searchHistory(webUrl.text.toString())
                     historySuggestionAdapter.addList(list)
                 }
             }
@@ -140,12 +146,29 @@ class MainActivity : AppCompatActivity() {
         webUrl.onFocusChangeListener = OnFocusChangeListener { _: View?, hasFocus: Boolean ->
             if (hasFocus) {
                 recyclerViewHistory.visibility = View.VISIBLE
-                val list: ArrayList<HistoryUrl> = BrowsingHistory.searchHistory(webUrl.text.toString())
+                val list: ArrayList<HistoryUrl> =
+                    BrowsingHistory.searchHistory(webUrl.text.toString())
                 historySuggestionAdapter.addList(list)
-                webUrl.isSingleLine = false
+                webUrl.maxLines = 5
             } else {
                 recyclerViewHistory.visibility = View.GONE
-                webUrl.isSingleLine = true
+                webUrl.maxLines = 1
+            }
+        }
+
+        webUrl.setOnEditorActionListener { _, actionId, event ->
+
+            if (actionId == IME_ACTION_GO) {
+                val url: String = try {
+                    URLDecoder.decode(webUrl.text.toString(), "UTF-8")
+                } catch (_: UnsupportedEncodingException) {
+                    webUrl.text.toString()
+                }
+                webView.loadUrl(url)
+                webUrl.clearFocus()
+                true
+            } else {
+                false
             }
         }
 

@@ -17,6 +17,7 @@
         android:background="@drawable/edittext_rounded_corner"
         android:ems="10"
         android:hint="Search or enter a URL"
+        android:imeOptions="actionGo"
         android:inputType="textUri"
         android:maxHeight="240dp"
         android:minHeight="32dp"
