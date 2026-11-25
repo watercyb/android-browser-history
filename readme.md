@@ -4,6 +4,13 @@ An Android browser history management library/application designed to efficientl
 
 The project focuses on fast in-memory history operations, persistent SQLite storage, URL token indexing, and concurrent access handling.
 
+## Screenshots
+
+<p align="center">
+  <img src="images/url.png" width="300" height="520" alt="URL Suggestions" />
+  <img src="images/history.png" width="300" height="520" alt="Browsing History" />
+</p>
+
 ## Features
 
 - **Browsing history management**
@@ -141,7 +148,7 @@ app/src/main/java/com/blueberryjoy/history/
 │   │   └── ...                 # SQLite history storage
 │   │
 │   ├── utils/
-│   │   └── ...                 # Utility components, including Favicon               
+│   │   └── ...                 # Utility components, including Favicon
 │   │
 │   ├── historypage/
 │   │   └── ...                 # Example history page Activity
