@@ -7,8 +7,8 @@ The project focuses on fast in-memory history operations, persistent SQLite stor
 ## Screenshots
 
 <p align="center">
-  <img src="images/url.png" width="300" height="520" alt="URL Suggestions" />
-  <img src="images/history.png" width="300" height="520" alt="Browsing History" />
+  <img src="images/url.png" height="520" alt="URL Suggestions" />
+  <img src="images/history.png" height="520" alt="Browsing History" />
 </p>
 
 ## Features
