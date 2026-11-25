@@ -1,5 +1,6 @@
 package com.blueberryjoy.history.history
 
+import android.R.attr.host
 import android.graphics.Bitmap
 import com.blueberryjoy.history.history.utils.Favicon
 import java.net.URI
@@ -20,9 +21,9 @@ class HistoryUrl(var id: Int, val url: String, var title: String, var timestamp:
     }
 
     private fun extractDomainPath(): String {
-        val uri = URI(url)
-        val host = uri.host ?: return url
-        val path = uri.path.substringBeforeLast(".")
+        val uri = runCatching { URI(url) }.getOrNull()
+        val host = uri?.host ?: return url
+        val path = uri.path?.substringBeforeLast(".")
         return host + path
     }
 

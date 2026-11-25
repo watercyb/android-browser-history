@@ -8,11 +8,8 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.view.View.OnFocusChangeListener
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.EditorInfo.IME_ACTION_GO
 import android.webkit.WebChromeClient
 import android.webkit.WebView
@@ -33,7 +30,6 @@ import com.blueberryjoy.history.history.BrowsingHistory.debouncedInsert
 import com.blueberryjoy.history.history.HistoryUrl
 import com.blueberryjoy.history.history.historypage.HistoryPage
 import com.blueberryjoy.history.history.utils.Favicon
-import java.io.Console
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
 
@@ -98,6 +94,7 @@ class MainActivity : AppCompatActivity() {
 
         webView.webViewClient = WebViewClient()
         webView.settings.javaScriptEnabled = true
+        webView.settings.domStorageEnabled = true
         webView.webChromeClient = object : WebChromeClient() {
             override fun onReceivedIcon(view: WebView, icon: Bitmap) {
                 super.onReceivedIcon(view, icon)
@@ -108,7 +105,8 @@ class MainActivity : AppCompatActivity() {
                 Handler(Looper.getMainLooper()).postDelayed(Runnable {
                     if (view?.url == null || title == null) return@Runnable
                     debouncedInsert(view.url!!, title)
-                    webUrl.setText(view.url)
+                    if (webUrl.text.toString() != view.url)
+                        webUrl.setText(view.url)
                 }, 1000)
             }
         }
@@ -156,8 +154,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        webUrl.setOnEditorActionListener { _, actionId, event ->
-
+        webUrl.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == IME_ACTION_GO) {
                 val url: String = try {
                     URLDecoder.decode(webUrl.text.toString(), "UTF-8")
