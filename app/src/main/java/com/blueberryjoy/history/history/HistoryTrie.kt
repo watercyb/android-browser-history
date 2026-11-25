@@ -8,6 +8,7 @@ class HistoryTrie {
     fun insert(token: String, list: List<HistoryUrl>) {
         var node = root
         for (chr in token) {
+            val chr = if (chr.isUpperCase()) chr.lowercase()[0] else chr
             node.add(list)
             node = node.nextOrCreate(chr)
         }
@@ -17,6 +18,7 @@ class HistoryTrie {
     fun get(token: String): List<List<HistoryUrl>> {
         var node = root
         for (chr in token) {
+            val chr = if (chr.isUpperCase()) chr.lowercase()[0] else chr
             val next = node.next(chr) ?: break
             node = next
         }

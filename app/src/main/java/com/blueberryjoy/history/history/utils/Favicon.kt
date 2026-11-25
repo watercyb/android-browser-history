@@ -117,9 +117,6 @@ object Favicon {
 
     fun checkDirExist(fullDir: String): Boolean {
         val dir = File(fullDir)
-        if (!dir.exists() || !dir.isDirectory) {
-            return dir.mkdirs()
-        }
-        return true
+        return !(!dir.exists() || !dir.isDirectory) || dir.mkdirs()
     }
 }

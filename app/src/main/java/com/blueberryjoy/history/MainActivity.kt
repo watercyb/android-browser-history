@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onReceivedTitle(view: WebView?, title: String?) {
                 Handler(Looper.getMainLooper()).postDelayed(Runnable {
-                    if (view == null || view.url == null || title == null) return@Runnable
+                    if (view?.url == null || title == null) return@Runnable
                     debouncedInsert(view.url!!, title)
                     webUrl.setText(view.url)
                 }, 1000)
